@@ -1,4 +1,4 @@
-package com.sky.striker.game.currencyconverter.ui.theme
+package com.orlo.currencyconverter.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -14,7 +14,16 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    )
+    ),
+
+    titleLarge = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 40.sp,
+    lineHeight = 35.sp,
+    letterSpacing = 0.sp
+)
+
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,

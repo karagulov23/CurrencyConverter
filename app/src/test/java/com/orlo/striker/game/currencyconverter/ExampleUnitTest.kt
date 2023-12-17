@@ -1,4 +1,4 @@
-package com.sky.striker.game.currencyconverter
+package com.orlo.striker.game.currencyconverter
 
 import org.junit.Test
 
