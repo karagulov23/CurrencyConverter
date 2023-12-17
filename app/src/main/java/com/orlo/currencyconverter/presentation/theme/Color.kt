@@ -1,4 +1,4 @@
-package com.sky.striker.game.currencyconverter.ui.theme
+package com.orlo.currencyconverter.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
