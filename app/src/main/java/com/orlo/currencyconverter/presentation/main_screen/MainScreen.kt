@@ -42,7 +42,10 @@ import androidx.compose.ui.unit.sp
 import com.olro.currencyconverter.R
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    state: MainScreenState,
+    onEvent: (MainScreenEvent) -> Unit
+) {
 
     val keys = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "C")
 
@@ -79,11 +82,11 @@ fun MainScreen() {
                         horizontalAlignment = Alignment.End
                     ) {
                         CurrencyCard(modifier = Modifier.fillMaxWidth(),
-                            currencyCode = "Kyrgyzstan Som",
-                            currencyName = "Som",
+                            currencyCode = state.fromCurrencyCode,
+                            currencyName =  state.currencyRates[state.fromCurrencyCode]?.name ?: "",
                             onDropDownIconClicked = {})
                         Text(
-                            text = "80.2",
+                            text = state.fromCurrencyCode,
                             fontSize = 40.sp,
                         )
                     }
@@ -99,12 +102,15 @@ fun MainScreen() {
                         horizontalAlignment = Alignment.End
                     ) {
                         Text(
-                            text = "80.2",
+                            text = state.toCurrencyCode,
                             fontSize = 40.sp,
+                            modifier = Modifier.clickable {
+                                onEvent(MainScreenEvent.ToCurrencySelect)
+                            }
                         )
                         CurrencyCard(modifier = Modifier.fillMaxWidth(),
-                            currencyCode = "Kyrgyzstan Som",
-                            currencyName = "Som",
+                            currencyCode = state.toCurrencyCode,
+                            currencyName = state.currencyRates[state.toCurrencyCode]?.name ?: "",
                             onDropDownIconClicked = {})
 
                     }
@@ -113,7 +119,9 @@ fun MainScreen() {
             Box(modifier = Modifier
                 .padding(start = 40.dp)
                 .clip(CircleShape)
-                .clickable { }
+                .clickable {
+                    onEvent(MainScreenEvent.SwapIconClicked)
+                }
                 .background(color = MaterialTheme.colorScheme.background)) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_sync),
@@ -136,7 +144,9 @@ fun MainScreen() {
                     key = key,
                     backgroundColor = if (key == "C") MaterialTheme.colorScheme.primary
                     else MaterialTheme.colorScheme.surfaceVariant,
-                    onClick = {})
+                    onClick = {
+                        onEvent(MainScreenEvent.NumberButtonClicked(key))
+                    })
             }
         }
 
@@ -186,5 +196,4 @@ fun KeyboardButton(
 @Preview
 @Composable
 fun MainScreenPreview() {
-    MainScreen()
 }
